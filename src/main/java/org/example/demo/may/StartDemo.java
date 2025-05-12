@@ -1,10 +1,8 @@
 package org.example.demo.may;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
-
 import java.util.*;
 
-public class No6 {
+public class StartDemo {
 
 
     public static void main(String[] args) {
