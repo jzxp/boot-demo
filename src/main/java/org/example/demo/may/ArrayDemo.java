@@ -6,12 +6,70 @@ public class ArrayDemo {
 
 
     public static void main(String[] args) {
-        System.out.println(reverse(-2147483648));
+        System.out.println(romanToInt("MCMXCIV"));
     }
 
 
-    public int myAtoi(String s) {
-        return 0;
+    public static int romanToInt(String s) {
+        char[] charArray = s.toCharArray();
+        int result = 0;
+        for (int i = 0; i < charArray.length; i++) {
+            //判断最大数，左侧减，右侧加
+            if (i < charArray.length - 1 && getValue(charArray[i]) < getValue(charArray[i+1])){
+                result -= getValue(charArray[i]);
+            }else {
+                result += getValue(charArray[i]);
+            }
+        }
+        return result;
+    }
+
+    private static int getValue(char c) {
+        switch (c) {
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+            default:
+                return 0;
+        }
+    }
+
+
+    public static int myAtoi(String s) {
+        char[] charArray = s.toCharArray();
+        int i = 0, sign = 1, result = 0;
+
+        while (i < charArray.length && charArray[i] == ' ') {
+            i++;
+        }
+        if (i >= charArray.length) return 0;
+
+        if (charArray[i] == '+' || charArray[i] == '-') {
+            sign = (charArray[i] == '-') ? -1 : 1;
+            i++;
+        }
+
+        while (i < charArray.length && Character.isDigit(charArray[i])) {
+            int digit = charArray[i] - '0';
+            if (result > Integer.MAX_VALUE / 10 ||
+                    (result == Integer.MAX_VALUE / 10 && digit > 7)) { // 7是MAX_VALUE%10的值
+                return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            }
+            result = result * 10 + digit;
+            i++;
+        }
+        return result * sign;
     }
 
 
@@ -203,9 +261,6 @@ public class ArrayDemo {
     }
 
 
-    public int romanToInt(String s) {
-        return 0;
-    }
 
 
 
