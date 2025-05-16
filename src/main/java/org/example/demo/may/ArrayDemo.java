@@ -6,11 +6,144 @@ public class ArrayDemo {
 
 
     public static void main(String[] args) {
-
-
+        System.out.println(reverse(-2147483648));
     }
 
 
+    public int myAtoi(String s) {
+        return 0;
+    }
+
+
+    public static int reverse(int x) {
+        int result = 0;
+        while (x != 0) {
+            int digit = x % 10;
+            x /= 10;
+            //数学预测，防止正向溢出
+            if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && digit > 7)) {
+                return 0;
+            }
+            //防止负向溢出
+            if (result < Integer.MIN_VALUE / 10 || (result == Integer.MIN_VALUE / 10 && digit < -8)) {
+                return 0;
+            }
+
+            result = result * 10 + digit;
+        }
+        return result;
+    }
+
+
+    public static String convert(String s, int numRows) {
+        if(numRows == 1) {
+            return s;
+        }
+        StringBuilder[] rows = new StringBuilder[Math.min(numRows, s.length())];
+        for (int i = 0; i < rows.length; i++) {
+            rows[i] = new StringBuilder();
+        }
+        int curRow = 0;
+        boolean goingDown = false;
+        for (char c : s.toCharArray()) {
+            rows[curRow].append(c);
+            if (curRow == 0) {
+                goingDown = true;
+            } else if (curRow == numRows - 1) {
+                goingDown = false;
+            }
+            curRow += goingDown ? 1 : -1;
+        }
+        StringBuilder ret = new StringBuilder();
+        for (StringBuilder row : rows) {
+            ret.append(row);
+        }
+        return ret.toString();
+    }
+
+
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(0);//头结点
+        //两结点和当前结点
+        ListNode p = l1, q = l2, current = dummyHead;
+        int carry = 0; //进位
+        while (p != null || q != null) {
+            int x  = p != null ? p.val : 0; //一链表当前结点值
+            int y  = q != null ? q.val : 0; //二链表当前结点值
+            int sum = carry + x + y; //两链表当前结点值和
+            carry = sum / 10; //进位
+            current.next = new ListNode(sum % 10); //当前结点值
+            current = current.next; //当前结点指针后移
+            if (p != null) p = p.next; //一链表指针后移
+            if (q != null) q = q.next; //二链表指针后移
+        }
+        if (carry > 0) {
+            current.next = new ListNode(carry); //如果进位不为0，则添加一个新的结点
+        }
+        return dummyHead.next; //返回头结点的下一个结点
+    }
+
+
+      public static class ListNode {
+          int val;
+          ListNode next;
+
+          ListNode() {
+          }
+
+          ListNode(int val) {
+              this.val = val;
+          }
+
+          ListNode(int val, ListNode next) {
+              this.val = val;
+              this.next = next;
+          }
+
+          @Override
+          public String toString() {
+              return "ListNode{" +
+                      "val=" + val +
+                      ", next=" + next +
+                      '}';
+          }
+      }
+
+
+    public static String longestPalindrome(String s) {
+        if(s.length() < 2){
+            return s;
+        }
+        int max = 1;
+        int begin = 0;
+        char[] charArray = s.toCharArray();
+        for (int i = 0; i < charArray.length; i++) {
+            for (int j = 0; j < charArray.length; j++) {
+                if(j-i+1 > max && isPalindrome(s.substring(i, j+1))){
+                    max = j-i+1;
+                    begin = i;
+                }
+            }
+        }
+        return s.substring(begin, begin + max);
+    }
+
+
+    public static String longestCommonPrefix(String[] strs) {
+        if(strs == null || strs.length == 0) {
+            return "";
+        }
+        String prefix = strs[0];
+        for(int i = 1; i < strs.length; i++) {
+            while(strs[i].indexOf(prefix) != 0) {
+                prefix = prefix.substring(0, prefix.length() - 1);
+                if(prefix.isEmpty()) {
+                    return "";
+                }
+            }
+        }
+        return prefix;
+    }
 
 
     public static boolean isPalindrome(String s) {
