@@ -1,14 +1,30 @@
 package org.example.demo.may;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class ArrayDemo {
 
 
     public static void main(String[] args) {
-//        System.out.println(longestCommonPrefix(new String[]{"flower", "flow", "flight"}));
-        System.out.println(longestCommonPrefix(new String[]{"flower", "hyguj", "flight"}));
+
+
+
+
+
     }
+
+
+//    public List<String> letterCombinations(String digits) {
+//        String[] str = {"","abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+//        char[] charArray = digits.toCharArray();
+//        for (int i = 0; i < charArray.length; i++) {
+//            for (int j = 0; j < str[charArray[i]].length(); j++) {
+//
+//            }
+//
+//        }
+//    }
 
 
 
