@@ -14,4 +14,9 @@ public class TestController {
     public String get(){
         return "ceshi";
     }
+
+    @GetMapping("/set")
+    public String set(){
+        return "ceshi";
+    }
 }
