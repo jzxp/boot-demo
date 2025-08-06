@@ -19,4 +19,9 @@ public class TestController {
     public String set(){
         return "ceshiedsa";
     }
+
+    @GetMapping("/delete")
+    public String delete(){
+        return "ceshiedsa";
+    }
 }
